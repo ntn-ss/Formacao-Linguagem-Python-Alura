@@ -6,8 +6,6 @@ def jogar():
     print('Bem-vindo ao jogo "Forca"!')
     print("**************************")
 
-    palavraSecreta = "banana".upper()
-
     #limite é o número de vezes que o jogo rodará.
     nivel = int(input("Escolha o seu nível de dificuldade:\n{1} - Fácil (20 tentativas)\n{2} - Médio (10 tentativas)\n{3} - Difícil (5 tentativas)\n"))
     if(nivel==1):
@@ -17,15 +15,23 @@ def jogar():
     else:
         limite=6
 
+    arquivo = open("palavras.txt", "r")
+    palavras = []
 
-    letrasAcertadas = []
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+    
+    arquivo.close()
+
+    numero = random.randrange(0,len(palavras))
+    palavraSecreta = palavras[numero].upper()
+    
+    letrasAcertadas = ["_" for letra in palavraSecreta]
     erros = 0
 
     ganhou = False
     perdeu = False
-
-    for letra in palavraSecreta:
-        letrasAcertadas.append("_")
     
     print(letrasAcertadas)
 
