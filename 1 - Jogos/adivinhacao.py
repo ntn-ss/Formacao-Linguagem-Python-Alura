@@ -53,8 +53,12 @@ def jogar():
         errMenor = chute < numeroSecreto
 
         if (acertou):
-            print("Você acertou e fez {} pontos!".format(pontos))
-            break
+            if (pontos==1):
+                print("Você acertou e fez {} ponto!".format(pontos))
+                break
+            else:
+                print("Você acertou e fez {} pontos!".format(pontos))
+                break
 
         else:
             pontosPerdidos=abs(numeroSecreto-chute)

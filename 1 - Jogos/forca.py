@@ -26,7 +26,10 @@ def jogar():
 
         else:
             erros += 1
-            print("Você errou {} vezes.".format(erros))
+            if erros==1:
+                print("Você errou {} vez.".format(erros))
+            else:
+                print("Você errou {} vezes.".format(erros))
 
         perdeu = erros == limite
         ganhou = "_" not in letrasAcertadas

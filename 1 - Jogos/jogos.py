@@ -11,9 +11,13 @@ def escolheJogo():
     if (jogo==1):
         print("Jogando Forca.")
         forca.jogar()
-    if (jogo==2):
+    
+    elif (jogo==2):
         print("Jogando Adivinhação.")
         adivinhacao.jogar()
+        
+    else:
+        print("Escolha corretamente.")
 
 if (__name__=="__main__"):
     while (True):
