@@ -3,7 +3,7 @@ import random
 
 def jogar():
 
-    #numeroSecreto é um número aleatório sorteado entre 0 e 100. Maior e menos são o início e o fim do intervalo.
+    #numeroSecreto é um número aleatório sorteado entre 1 e 100. Maior e menos são o início e o fim do intervalo.
     numeroSecreto = random.randrange(1,101)
 
     pontos = 1000
