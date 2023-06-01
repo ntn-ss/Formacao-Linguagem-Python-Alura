@@ -1,0 +1,10 @@
+Expressões regulares:
+
+[] define um grupo de caracteres. Ex: [0-9], [a-z], [abc]
+* marca nenhuma, uma ou mais ocorrências.
+{} quantidade de repetições de uma ocorrência definida. [abc]{5}
+\d qualquer número de 0 a 9. \d{3,4}
+\w qualquer número de 0 a 9, letra de a a z ou _ (underline) \w{10}
+| um ou outro @|$
+() captura e agrupa (\w{4})
+? (após grupo com parênteses): aquele grupo não é obrigatório
