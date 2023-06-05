@@ -18,9 +18,13 @@ class Leilao:
         self.descricao = descricao
         self.__lances = []
     
+    def propoe(self, lance: Lance):
+        self.__lances.append(lance)
+    
     @property
     def lances(self):
-        return self.__lances
+        # chama-se "cópia rasa de lista", queremos impedir que classes externas modifiquem o vetor de lances diretamente.
+        return self.__lances[:]
 
 class Avaliador:
     def __init__(self):
