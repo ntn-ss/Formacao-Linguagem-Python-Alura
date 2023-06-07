@@ -1,4 +1,4 @@
-from leilao.dominio import Usuario, Lance, Leilao, Avaliador
+from dominio import Usuario, Lance, Leilao, Avaliador
 
 
 

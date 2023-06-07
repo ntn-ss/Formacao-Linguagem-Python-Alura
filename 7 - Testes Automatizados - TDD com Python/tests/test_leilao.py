@@ -1,10 +1,10 @@
 from unittest import TestCase
-from dominio import Usuario, Leilao, Lance
-
+from leilao.dominio import Usuario, Leilao, Lance
+from leilao.excecoes import LanceInvalido
 class TestLeilao(TestCase):
     # o método setUp é executado por padrão antes de qualquer outro teste. Preferir pôr apenas o que for comum a tudo, quiçá na menor quantidade possível, pois se forem códigos demais (ex.: instâncias de objetos), a máquina pode ficar lenta na execução de muitos testes.
     def setUp(self):
-        self.nathan = Usuario('Nathan')
+        self.nathan = Usuario('Nathan', 500.0)
         self.lance_do_nathan = Lance(self.nathan, 300.00)
 
         self.leilao = Leilao('Cinquentinha')
@@ -14,7 +14,7 @@ class TestLeilao(TestCase):
     # alguns programadores gostam de nomear seus testes com a situação antes e o verbo depois.
     def test_deve_retornar_maior_e_menor_valor_de_lances_adicionados_em_ordem_crescente (self):
         
-        breno = Usuario('Breno')
+        breno = Usuario('Breno', 500.0)
         lance_do_breno = Lance(breno, 300.01)
         
         self.leilao.propoe(lance_do_breno)
@@ -29,8 +29,8 @@ class TestLeilao(TestCase):
     # segundo caso de uso, ordem decrescente.
     # este teste antes retornava os maiores e menores valores quando adicionados em ordem descrescente, mas essa ideia tornou-se defasada graças à regra de negócio adicionada mais abaixo no arquivo. isso é relativamente comum no "mundo real", os testes de software devem se adaptar às mudanças da corporação.
     def test_nao_deve_permitir_propor_um_lance_em_ordem_decrescente (self):
-        with self.assertRaises(ValueError):
-            breno = Usuario('Breno')
+        with self.assertRaises(LanceInvalido):
+            breno = Usuario('Breno', 500.0)
             lance_do_breno = Lance(breno, 300.01)
             
             self.leilao.propoe(lance_do_breno)
@@ -44,10 +44,10 @@ class TestLeilao(TestCase):
     # a partir daqui, torna-se inútil testar essa funcionalidade pois é tudo muito parecido e podemos ter confiança de que a quantidade de itens independe, salvo se houver uma regra de negócio como "lance de número X recebe bonificação".
     
     def test_deve_retornar_o_maior_e_o_menor_valor_quando_o_leilao_tiver_tres_lances (self):
-        thales = Usuario('Thales')
+        thales = Usuario('Thales', 500.0)
         lance_do_thales = Lance(thales, 300.01)
         
-        breno = Usuario('Breno')
+        breno = Usuario('Breno', 500.0)
         lance_do_breno = Lance(breno, 300.02)
 
         self.leilao.propoe(lance_do_thales)
@@ -71,7 +71,7 @@ class TestLeilao(TestCase):
         
     # regra 2: se o último usuário for diferente, deve permitir propor um lance.
     def test_deve_permitir_propor_um_lance_caso_o_ultimo_usuario_seja_diferente(self):
-        breno = Usuario("Breno")
+        breno = Usuario("Breno", 500.0)
         lance_do_breno = Lance(breno, 400.0)
         
         self.leilao.propoe(lance_do_breno)
@@ -81,8 +81,6 @@ class TestLeilao(TestCase):
     def test_deve_negar_propor_lance_caso_o_usuario_seja_o_mesmo(self):
         lance_do_nathan_de_quatrocentos = Lance(self.nathan, 400.0)
         
-        # se eu não lançasse uma exceção ValueError no módulo dominio, este método retornaria "falso" e o teste falharia.
-        with self.assertRaises(ValueError):
+        # se eu não lançasse uma exceção LanceInvalido no módulo dominio, este método retornaria "falso" e o teste falharia.
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(lance_do_nathan_de_quatrocentos)
-    
-    # regra 4: um lance só deve ser proposto caso seu valor seja maior que o valor do último
